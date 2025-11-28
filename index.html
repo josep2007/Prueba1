@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Variables y reset */
+        /* Variables CSS y reset de estilos */
         :root {
             --primary-dark: #1a365d;
             --primary: #2d3748;
@@ -98,6 +98,32 @@
             transform: translateY(-3px);
         }
 
+        /* Botón blanco para la sección hero */
+        .btn-white {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            border: 2px solid var(--white);
+        }
+
+        .btn-white:hover {
+            background-color: transparent;
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-dark);
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+            color: var(--white);
+        }
+
         .section-title {
             text-align: center;
             margin-bottom: 50px;
@@ -121,7 +147,7 @@
             color: var(--accent);
         }
 
-        /* Animaciones */
+        /* Animaciones CSS */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -143,7 +169,18 @@
             50% { transform: scale(1.05); }
         }
 
-        /* Header */
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Estilos del encabezado */
         header {
             background-color: var(--white);
             position: fixed;
@@ -177,11 +214,13 @@
             justify-content: center;
             margin-right: 10px;
             animation: float 3s ease-in-out infinite;
+            overflow: hidden;
         }
 
-        .logo-icon i {
-            color: var(--white);
-            font-size: 1.3rem;
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .logo-text {
@@ -253,7 +292,188 @@
             z-index: 1001;
         }
 
-        /* Hero Section */
+        /* Modal de Login/Registro */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-modal {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            position: relative;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: var(--accent);
+        }
+
+        .auth-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(214, 158, 46, 0.2);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input {
+            width: auto;
+        }
+
+        .forgot-password {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .form-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sección Hero */
         .hero {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: var(--white);
@@ -269,7 +489,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLydY3LKfYZ3FpOztotQn-QtThTfUNc4jcDQ&s') center/cover no-repeat;
             opacity: 0.1;
         }
 
@@ -349,7 +569,7 @@
             animation-delay: 4s;
         }
 
-        /* Services Section */
+        /* Sección de Servicios */
         .services {
             background-color: var(--white);
         }
@@ -443,7 +663,7 @@
             font-size: 0.95rem;
         }
 
-        /* Bands Section */
+        /* Sección de Bandas */
         .bands {
             background-color: var(--light-bg);
             position: relative;
@@ -513,7 +733,7 @@
             font-size: 0.9rem;
         }
 
-        /* Events Section */
+        /* Sección de Eventos */
         .events {
             background-color: var(--white);
         }
@@ -599,7 +819,7 @@
             margin-right: 5px;
         }
 
-        /* History Section */
+        /* Sección de Historia */
         .history {
             background-color: var(--light-bg);
             position: relative;
@@ -714,7 +934,7 @@
             z-index: 0;
         }
 
-        /* Testimonials Section */
+        /* Sección de Testimonios - COMPLETAMENTE CORREGIDA */
         .testimonials {
             background-color: var(--light-bg);
         }
@@ -725,14 +945,31 @@
             position: relative;
         }
 
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+            width: 300%;
+        }
+
         .testimonial-card {
             background: var(--white);
             border-radius: var(--border-radius);
             padding: 40px 30px;
             box-shadow: var(--shadow);
             position: relative;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.5s forwards;
+            width: 33.333%;
+            flex-shrink: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .testimonial-card:before {
@@ -806,7 +1043,7 @@
             transform: scale(1.2);
         }
 
-        /* CTA Section */
+        /* Sección CTA */
         .cta {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: var(--white);
@@ -826,7 +1063,7 @@
             opacity: 0.9;
         }
 
-        /* Footer */
+        /* Pie de página */
         footer {
             background-color: var(--primary-dark);
             color: var(--white);
@@ -974,7 +1211,7 @@
             color: var(--accent);
         }
 
-        /* ========== RESPONSIVE DESIGN ========== */
+        /* ========== DISEÑO RESPONSIVE ========== */
 
         /* Tablets */
         @media (max-width: 992px) {
@@ -1013,6 +1250,7 @@
                 width: 100%;
             }
             
+            /* Ocultar botones en móvil y mostrar menú hamburguesa */
             .header-actions .btn {
                 display: none;
             }
@@ -1054,9 +1292,13 @@
                 width: 100%;
                 max-width: 280px;
             }
+
+            .testimonial-slider {
+                height: 350px;
+            }
         }
 
-        /* Tablets pequeñas y móviles grandes */
+        /* Tabletas pequeñas y móviles grandes */
         @media (max-width: 768px) {
             .section-padding {
                 padding: 60px 0;
@@ -1099,6 +1341,22 @@
             
             .testimonial-text {
                 font-size: 1rem;
+            }
+
+            /* Ajustes para formularios en móvil */
+            .auth-modal {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .testimonial-slider {
+                height: 400px;
             }
         }
 
@@ -1165,6 +1423,23 @@
             .nav-menu {
                 width: 250px;
             }
+
+            /* Ajustes adicionales para móviles pequeños */
+            .auth-tabs {
+                flex-direction: column;
+            }
+
+            .auth-tab {
+                padding: 10px;
+            }
+
+            .form-group input {
+                padding: 10px 12px;
+            }
+
+            .testimonial-slider {
+                height: 450px;
+            }
         }
 
         /* Móviles muy pequeños */
@@ -1192,16 +1467,33 @@
             .footer-grid {
                 gap: 25px;
             }
+
+            .testimonial-slider {
+                height: 500px;
+            }
+        }
+
+        /* Botón de login para móviles (se muestra en el menú desplegable) */
+        .mobile-login-btn {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .mobile-login-btn {
+                display: block;
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Encabezado -->
     <header>
         <div class="container header-container">
             <a href="#" class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-music"></i>
+                    <!-- Imagen en lugar del icono Font Awesome -->
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6LBsfR2GUA6RafZyJJxc8qPYU7PYz5W2-g&s" alt="Logo CAM Betera">
                 </div>
                 <div class="logo-text">
                     <div class="logo-main">CAM Betera</div>
@@ -1216,9 +1508,19 @@
                 <li><a href="#historia">Historia</a></li>
                 <li><a href="#eventos">Eventos</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <!-- Solo un botón de login en el menú desplegable -->
+                <li class="mobile-login-btn">
+                    <button class="btn btn-login" id="loginBtn">
+                        <i class="fas fa-user"></i> Iniciar Sesión
+                    </button>
+                </li>
             </ul>
             
             <div class="header-actions">
+                <!-- Botón de login para escritorio -->
+                <button class="btn btn-login" id="desktopLoginBtn">
+                    <i class="fas fa-user"></i> Iniciar Sesión
+                </button>
                 <a href="#" class="btn btn-primary">Matrícula Abierta</a>
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
@@ -1227,7 +1529,75 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Modal de Login/Registro -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+                <button class="auth-tab" data-tab="register">Registrarse</button>
+            </div>
+            
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" placeholder="Tu contraseña" required>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Recordarme</label>
+                    </div>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <button type="submit" class="form-submit">Iniciar Sesión</button>
+                
+                <div class="form-footer">
+                    ¿No tienes cuenta? <a href="#" class="switch-tab" data-tab="register">Regístrate aquí</a>
+                </div>
+            </form>
+            
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Nombre completo</label>
+                    <input type="text" id="registerName" placeholder="Tu nombre completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña</label>
+                    <input type="password" id="registerPassword" placeholder="Crea una contraseña" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar contraseña</label>
+                    <input type="password" id="registerConfirmPassword" placeholder="Repite tu contraseña" required>
+                </div>
+                
+                <button type="submit" class="form-submit">Crear Cuenta</button>
+                
+                <div class="form-footer">
+                    ¿Ya tienes cuenta? <a href="#" class="switch-tab" data-tab="login">Inicia sesión aquí</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sección Hero -->
     <section class="hero" id="inicio">
         <div class="floating-elements">
             <div class="floating-element"></div>
@@ -1241,14 +1611,15 @@
                 <a href="#" class="btn btn-primary">
                     <i class="fas fa-guitar"></i> Ver Cursos
                 </a>
-                <a href="#" class="btn btn-secondary">
-                    <i class="fas fa-users"></i> Nuestras Bandas
+                <!-- Botón cambiado a blanco para mejor contraste -->
+                <a href="#" class="btn btn-white">
+                    <i class="fas fa-users"></i> Nuestras Agrupaciones
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Sección de Servicios -->
     <section class="services section-padding" id="servicios">
         <div class="container">
             <div class="section-title">
@@ -1295,16 +1666,16 @@
         </div>
     </section>
 
-    <!-- Bands Section -->
+    <!-- Sección de Agrupaciones -->
     <section class="bands section-padding" id="bandas">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestras <span class="title-accent">Bandas</span></h2>
+                <h2>Nuestras <span class="title-accent">Agrupaciones</span></h2>
                 <p>Agrupaciones musicales que representan la excelencia de nuestra escuela.</p>
             </div>
             <div class="bands-grid">
                 <div class="band-card">
-                    <img src="https://images.unsplash.com/photo-1571974599782-87624638275f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Banda Sinfónica" class="band-img">
+                    <img src="https://www.betera.com/wp-content/uploads/2025/11/IMG_0907-2048x1024.jpeg" alt="Banda Sinfónica" class="band-img">
                     <div class="band-content">
                         <h3>Banda Sinfónica</h3>
                         <p>Formación principal del centro con más de 70 músicos. Repertorio sinfónico y contemporáneo.</p>
@@ -1313,7 +1684,7 @@
                 </div>
                 
                 <div class="band-card">
-                    <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Banda Juvenil" class="band-img">
+                    <img src="https://www.betera.com/wp-content/uploads/2022/11/CAM-5.jpg" alt="Banda Juvenil" class="band-img">
                     <div class="band-content">
                         <h3>Banda Juvenil</h3>
                         <p>Agrupación para jóvenes músicos en formación. Primeras experiencias en conjunto musical.</p>
@@ -1322,7 +1693,7 @@
                 </div>
                 
                 <div class="band-card">
-                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Orquesta de Cámara" class="band-img">
+                    <img src="https://www.betera.com/wp-content/uploads/2022/04/IMG_8477.jpg" alt="Orquesta de Cámara" class="band-img">
                     <div class="band-content">
                         <h3>Orquesta de Cámara</h3>
                         <p>Formación especializada en repertorio clásico y barroco. Músicos de nivel avanzado.</p>
@@ -1333,7 +1704,7 @@
         </div>
     </section>
 
-    <!-- History Section -->
+    <!-- Sección de Historia -->
     <section class="history section-padding" id="historia">
         <div class="container">
             <div class="section-title">
@@ -1405,7 +1776,7 @@
         </div>
     </section>
 
-    <!-- Events Section -->
+    <!-- Sección de Eventos -->
     <section class="events section-padding" id="eventos">
         <div class="container">
             <div class="section-title">
@@ -1461,7 +1832,7 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+    <!-- Sección de Testimonios - COMPLETAMENTE CORREGIDA -->
     <section class="testimonials section-padding">
         <div class="container">
             <div class="section-title">
@@ -1469,34 +1840,77 @@
                 <p>Lo que dicen nuestros alumnos y familias sobre la experiencia en CAM Betera.</p>
             </div>
             <div class="testimonials-container">
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">Llevo más de 10 años formándome en CAM Betera y ha sido una experiencia transformadora. De alumna principiante he pasado a formar parte de la Banda Sinfónica. Los profesores son excepcionales y la comunidad musical que se crea es increíble.</p>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ana Martínez" class="author-avatar">
-                        <div class="author-info">
-                            <h4>Ana Martínez</h4>
-                            <p>Alumna de clarinete - Banda Sinfónica</p>
+                <div class="testimonial-slider">
+                    <div class="testimonial-track" id="testimonialTrack">
+                        <!-- Testimonio 1 -->
+                        <div class="testimonial-card">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">Llevo más de 10 años formándome en CAM Betera y ha sido una experiencia transformadora. De alumna principiante he pasado a formar parte de la Banda Sinfónica. Los profesores son excepcionales y la comunidad musical que se crea es increíble.</p>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ana Martínez" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Ana Martínez</h4>
+                                    <p>Alumna de clarinete - Banda Sinfónica</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonio 2 -->
+                        <div class="testimonial-card">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">Como padre, estoy encantado con la formación que recibe mi hija. No solo aprende música, sino valores como la disciplina, el trabajo en equipo y la perseverancia. El ambiente es familiar y los profesores están muy comprometidos.</p>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Rodríguez" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Carlos Rodríguez</h4>
+                                    <p>Padre de alumna</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonio 3 -->
+                        <div class="testimonial-card">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">Después de probar varias escuelas de música, encontré en CAM Betera el lugar perfecto. La metodología es excelente y el enfoque personalizado me ha permitido progresar mucho más rápido de lo que esperaba. ¡Recomiendo totalmente esta escuela!</p>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Laura Sánchez" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Laura Sánchez</h4>
+                                    <p>Alumna de piano - 3er año</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="testimonial-nav">
-                    <div class="nav-dot active"></div>
-                    <div class="nav-dot"></div>
-                    <div class="nav-dot"></div>
+                    <div class="nav-dot active" data-index="0"></div>
+                    <div class="nav-dot" data-index="1"></div>
+                    <div class="nav-dot" data-index="2"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- Sección CTA -->
     <section class="cta">
         <div class="container">
             <h2>¿Listo para comenzar tu viaje musical?</h2>
@@ -1507,7 +1921,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Pie de página -->
     <footer id="contacto">
         <div class="container">
             <div class="footer-grid">
@@ -1578,26 +1992,220 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 CAM Betera - Centre Artistic Musical. Todos los derechos reservados. | <a href="#">Aviso Legal</a> | <a href="#">Política de Privacidad</a></p>
+                <p>&copy; 2026 CAM Betera - Centre Artistic Musical. Todos los derechos reservados. | <a href="#">Aviso Legal</a> | <a href="#">Política de Privacidad</a></p>
             </div>
         </div>
     </footer>
 
     <script>
-        // JavaScript simple y funcional para CAM Betera
+        // JavaScript para el modal de login/registro - Comentarios en español
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // 1. Menú móvil simple
+            // Elementos del modal
+            const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+            const mobileLoginBtn = document.getElementById('loginBtn');
+            const authModal = document.getElementById('authModal');
+            const closeModal = document.getElementById('closeModal');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const authForms = document.querySelectorAll('.auth-form');
+            const switchTabs = document.querySelectorAll('.switch-tab');
             const menuToggle = document.querySelector('.menu-toggle');
             const navMenu = document.querySelector('.nav-menu');
             
+            // Elementos del carrusel de testimonios - COMPLETAMENTE CORREGIDO
+            const testimonialTrack = document.getElementById('testimonialTrack');
+            const navDots = document.querySelectorAll('.nav-dot');
+            let currentTestimonial = 0;
+            const totalTestimonials = document.querySelectorAll('.testimonial-card').length;
+            let testimonialInterval;
+            
+            // Función para abrir el modal
+            function openAuthModal() {
+                authModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+            }
+            
+            // Función para cerrar el modal
+            function closeAuthModal() {
+                authModal.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Restaurar scroll del body
+                // Cerrar también el menú móvil si está abierto
+                navMenu.classList.remove('active');
+            }
+            
+            // Abrir modal desde el botón de escritorio
+            desktopLoginBtn.addEventListener('click', openAuthModal);
+            
+            // Abrir modal desde el botón móvil
+            mobileLoginBtn.addEventListener('click', openAuthModal);
+            
+            // Cerrar modal con el botón X
+            closeModal.addEventListener('click', closeAuthModal);
+            
+            // Cerrar modal al hacer clic fuera del contenido
+            authModal.addEventListener('click', function(e) {
+                if (e.target === authModal) {
+                    closeAuthModal();
+                }
+            });
+            
+            // Cambiar entre pestañas de login y registro
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Actualizar pestañas activas
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Actualizar formularios activos
+                    authForms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === `${tabId}Form`) {
+                            form.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Cambiar pestaña desde enlaces de formulario ("¿No tienes cuenta?" / "¿Ya tienes cuenta?")
+            switchTabs.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Actualizar pestañas activas
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector(`.auth-tab[data-tab="${tabId}"]`).classList.add('active');
+                    
+                    // Actualizar formularios activos
+                    authForms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === `${tabId}Form`) {
+                            form.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Manejar envío del formulario de login
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Aquí iría la lógica de autenticación real
+                console.log('Iniciando sesión con:', { email, password });
+                alert('Inicio de sesión simulado. En una implementación real, esto conectaría con un servidor.');
+                
+                // Cerrar modal después de "iniciar sesión"
+                setTimeout(() => {
+                    closeAuthModal();
+                    // Cambiar texto del botón a "Mi Cuenta"
+                    desktopLoginBtn.innerHTML = '<i class="fas fa-user"></i> Mi Cuenta';
+                    mobileLoginBtn.innerHTML = '<i class="fas fa-user"></i> Mi Cuenta';
+                }, 1000);
+            });
+            
+            // Manejar envío del formulario de registro
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('registerConfirmPassword').value;
+                
+                // Validación básica de contraseñas
+                if (password !== confirmPassword) {
+                    alert('Las contraseñas no coinciden');
+                    return;
+                }
+                
+                // Aquí iría la lógica de registro real
+                console.log('Registrando usuario:', { name, email, password });
+                alert('Registro simulado. En una implementación real, esto conectaría con un servidor.');
+                
+                // Cambiar a pestaña de login después de "registrarse"
+                setTimeout(() => {
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
+                    
+                    authForms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === 'loginForm') {
+                            form.classList.add('active');
+                        }
+                    });
+                }, 1000);
+            });
+            
+            // Menú móvil simple
             if (menuToggle) {
                 menuToggle.addEventListener('click', function() {
                     navMenu.classList.toggle('active');
                 });
             }
             
-            // 2. Scroll suave para enlaces internos
+            // Cerrar menú móvil al hacer clic en un enlace
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 992) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+            
+            // CARRUSEL DE TESTIMONIOS - COMPLETAMENTE CORREGIDO
+            function goToTestimonial(index) {
+                // Asegurarse de que el índice esté dentro de los límites
+                if (index < 0) {
+                    currentTestimonial = totalTestimonials - 1;
+                } else if (index >= totalTestimonials) {
+                    currentTestimonial = 0;
+                } else {
+                    currentTestimonial = index;
+                }
+                
+                // Mover el carrusel
+                testimonialTrack.style.transform = `translateX(-${currentTestimonial * 33.333}%)`;
+                
+                // Actualizar puntos de navegación activos
+                navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentTestimonial);
+                });
+            }
+            
+            // Agregar event listeners a los puntos de navegación
+            navDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    goToTestimonial(index);
+                    resetTestimonialInterval(); // Reiniciar el intervalo al hacer clic manual
+                });
+            });
+            
+            // Función para reiniciar el intervalo automático
+            function resetTestimonialInterval() {
+                clearInterval(testimonialInterval);
+                testimonialInterval = setInterval(() => {
+                    goToTestimonial(currentTestimonial + 1);
+                }, 5000);
+            }
+            
+            // Iniciar el cambio automático de testimonios
+            testimonialInterval = setInterval(() => {
+                goToTestimonial(currentTestimonial + 1);
+            }, 5000);
+            
+            // Pausar el carrusel cuando el usuario interactúa con él
+            testimonialTrack.addEventListener('mouseenter', () => {
+                clearInterval(testimonialInterval);
+            });
+            
+            testimonialTrack.addEventListener('mouseleave', () => {
+                resetTestimonialInterval();
+            });
+            
+            // Scroll suave para enlaces internos
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1611,7 +2219,7 @@
                 });
             });
             
-            // 3. Animación al hacer scroll
+            // Animación al hacer scroll
             function checkScroll() {
                 const elements = document.querySelectorAll('.service-card, .band-card, .event-card, .timeline-item');
                 elements.forEach(el => {
@@ -1623,9 +2231,9 @@
             }
             
             window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Ejecutar al cargar
+            checkScroll(); // Ejecutar al cargar la página
             
-            // 4. Efecto header al hacer scroll
+            // Efecto header al hacer scroll
             window.addEventListener('scroll', function() {
                 const header = document.querySelector('header');
                 if (window.scrollY > 50) {
@@ -1635,7 +2243,7 @@
                 }
             });
             
-            // 5. Newsletter form simple
+            // Newsletter form simple
             const newsletterForm = document.querySelector('.newsletter form');
             if (newsletterForm) {
                 newsletterForm.addEventListener('submit', function(e) {
